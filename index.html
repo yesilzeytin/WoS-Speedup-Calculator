@@ -6,6 +6,7 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -13,44 +14,70 @@
             background-color: #f0f0f0;
         }
         .container {
-            background-color: white;
+            background-color: #ffdc5c;
+            opacity: 0.9;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 600px;
-            width: 100%;
-            border: 2px solid #335397;
+            width: 90%;
         }
-        h1, h2 {
+        h1 {
             text-align: center;
             color: #335397;
         }
-        .section {
+        .tabs {
+            display: flex;
+            justify-content: center;
             margin-bottom: 20px;
-            border: 1px solid #335397;
-            padding: 10px;
-            border-radius: 8px;
         }
-        .section h2 {
-            margin-top: 0;
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #335397;
+            color: white;
+            border: none;
+            border-radius: 5px 5px 0 0;
+            margin: 0 5px;
+        }
+        .tab.active {
+            background-color: #ffdc5c;
             color: #335397;
         }
-        label {
+        .section {
+            display: none;
+            background-color: white;
+            border: 2px solid #335397;
+            border-radius: 0 0 8px 8px;
+            padding: 20px;
+        }
+        .section.active {
             display: block;
-            margin-top: 10px;
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .form-column {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
             color: #335397;
         }
         input[type="number"] {
-            width: 60px;
-            margin: 5px;
-            color: #335397;
+            margin: 5px 0;
+            width: 100px;
         }
-        input[type="checkbox"] {
-            margin: 0 10px;
-            color: #335397;
+        .checkbox-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
         }
         button {
-            margin-top: 10px;
+            display: block;
+            margin: 20px auto 0;
             padding: 10px 20px;
             background-color: #335397;
             color: white;
@@ -70,110 +97,141 @@
             color: green;
             text-align: center;
         }
-        @media (max-width: 600px) {
-            input[type="number"] {
-                width: 40px;
-                margin: 3px;
-            }
-        }
     </style>
 </head>
 <body>
+    <h1>Riyeko's Whiteout Survival Speedup Calculator</h1>
+    <div class="tabs">
+        <div class="tab active" onclick="showSection('construction')">Construction</div>
+        <div class="tab" onclick="showSection('research')">Research</div>
+        <div class="tab" onclick="showSection('troop')">Troop</div>
+    </div>
     <div class="container">
-        <h1>Riyeko's Whiteout Survival Speedup Calculator</h1>
-        
-        <div class="section">
+        <div id="construction" class="section active">
             <h2>Construction Time</h2>
-            <label for="construction-day">Day (int):</label>
-            <input type="number" id="construction-day" placeholder="0" value="0">
-            <label for="construction-hour">Hour (int):</label>
-            <input type="number" id="construction-hour" placeholder="0" value="0">
-            <label for="construction-minute">Minute (int):</label>
-            <input type="number" id="construction-minute" placeholder="0" value="0">
-            <label for="construction-second">Second (int):</label>
-            <input type="number" id="construction-second" placeholder="0" value="0">
-            <label for="construction-bonus">Construction Bonus (float):</label>
-            <input type="number" id="construction-bonus" placeholder="0" value="0">
-            <label for="construction-pet-skill">Pet Skill (float):</label>
-            <input type="number" id="construction-pet-skill" placeholder="0" value="0">
-            <label>
-                Policy (20%)
-                <input type="checkbox" id="construction-policy">
-            </label>
-            <label>
-                Presidential Boost (10%)
-                <input type="checkbox" id="construction-presidential">
-            </label>
-            <label>
-                Vice President (10%)
-                <input type="checkbox" id="construction-vp">
-            </label>
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="construction-day">Day (int):</label>
+                    <input type="number" id="construction-day" placeholder="0" value="0">
+                    <label for="construction-hour">Hour (int):</label>
+                    <input type="number" id="construction-hour" placeholder="0" value="0">
+                    <label for="construction-minute">Minute (int):</label>
+                    <input type="number" id="construction-minute" placeholder="0" value="0">
+                    <label for="construction-second">Second (int):</label>
+                    <input type="number" id="construction-second" placeholder="0" value="0">
+                </div>
+                <div class="form-column">
+                    <label for="construction-bonus">Construction Bonus (float):</label>
+                    <input type="number" id="construction-bonus" placeholder="0" value="0">
+                    <label for="construction-pet-skill">Pet Skill (float):</label>
+                    <input type="number" id="construction-pet-skill" placeholder="0" value="0">
+                </div>
+            </div>
+            <div class="checkbox-row">
+                <label>
+                    Policy (20%)
+                    <input type="checkbox" id="construction-policy">
+                </label>
+                <label>
+                    Presidential Boost (10%)
+                    <input type="checkbox" id="construction-presidential">
+                </label>
+                <label>
+                    Vice President (10%)
+                    <input type="checkbox" id="construction-vp">
+                </label>
+            </div>
             <button onclick="calculateTime('construction')">Calculate</button>
             <p id="construction-result"></p>
         </div>
 
-        <div class="section">
+        <div id="research" class="section">
             <h2>Research Time</h2>
-            <label for="research-day">Day (int):</label>
-            <input type="number" id="research-day" placeholder="0" value="0">
-            <label for="research-hour">Hour (int):</label>
-            <input type="number" id="research-hour" placeholder="0" value="0">
-            <label for="research-minute">Minute (int):</label>
-            <input type="number" id="research-minute" placeholder="0" value="0">
-            <label for="research-second">Second (int):</label>
-            <input type="number" id="research-second" placeholder="0" value="0">
-            <label for="research-bonus">Construction Bonus (float):</label>
-            <input type="number" id="research-bonus" placeholder="0" value="0">
-            <label for="research-pet-skill">Pet Skill (float):</label>
-            <input type="number" id="research-pet-skill" placeholder="0" value="0">
-            <label>
-                Policy (20%)
-                <input type="checkbox" id="research-policy">
-            </label>
-            <label>
-                Presidential Boost (10%)
-                <input type="checkbox" id="research-presidential">
-            </label>
-            <label>
-                Vice President (10%)
-                <input type="checkbox" id="research-vp">
-            </label>
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="research-day">Day (int):</label>
+                    <input type="number" id="research-day" placeholder="0" value="0">
+                    <label for="research-hour">Hour (int):</label>
+                    <input type="number" id="research-hour" placeholder="0" value="0">
+                    <label for="research-minute">Minute (int):</label>
+                    <input type="number" id="research-minute" placeholder="0" value="0">
+                    <label for="research-second">Second (int):</label>
+                    <input type="number" id="research-second" placeholder="0" value="0">
+                </div>
+                <div class="form-column">
+                    <label for="research-bonus">Construction Bonus (float):</label>
+                    <input type="number" id="research-bonus" placeholder="0" value="0">
+                    <label for="research-pet-skill">Pet Skill (float):</label>
+                    <input type="number" id="research-pet-skill" placeholder="0" value="0">
+                </div>
+            </div>
+            <div class="checkbox-row">
+                <label>
+                    Policy (20%)
+                    <input type="checkbox" id="research-policy">
+                </label>
+                <label>
+                    Presidential Boost (10%)
+                    <input type="checkbox" id="research-presidential">
+                </label>
+                <label>
+                    Vice President (10%)
+                    <input type="checkbox" id="research-vp">
+                </label>
+            </div>
             <button onclick="calculateTime('research')">Calculate</button>
             <p id="research-result"></p>
         </div>
 
-        <div class="section">
+        <div id="troop" class="section">
             <h2>Troop Time</h2>
-            <label for="troop-day">Day (int):</label>
-            <input type="number" id="troop-day" placeholder="0" value="0">
-            <label for="troop-hour">Hour (int):</label>
-            <input type="number" id="troop-hour" placeholder="0" value="0">
-            <label for="troop-minute">Minute (int):</label>
-            <input type="number" id="troop-minute" placeholder="0" value="0">
-            <label for="troop-second">Second (int):</label>
-            <input type="number" id="troop-second" placeholder="0" value="0">
-            <label for="troop-bonus">Construction Bonus (float):</label>
-            <input type="number" id="troop-bonus" placeholder="0" value="0">
-            <label for="troop-pet-skill">Pet Skill (float):</label>
-            <input type="number" id="troop-pet-skill" placeholder="0" value="0">
-            <label>
-                Policy (20%)
-                <input type="checkbox" id="troop-policy">
-            </label>
-            <label>
-                Presidential Boost (10%)
-                <input type="checkbox" id="troop-presidential">
-            </label>
-            <label>
-                Minister of Education (10%)
-                <input type="checkbox" id="troop-minister">
-            </label>
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="troop-day">Day (int):</label>
+                    <input type="number" id="troop-day" placeholder="0" value="0">
+                    <label for="troop-hour">Hour (int):</label>
+                    <input type="number" id="troop-hour" placeholder="0" value="0">
+                    <label for="troop-minute">Minute (int):</label>
+                    <input type="number" id="troop-minute" placeholder="0" value="0">
+                    <label for="troop-second">Second (int):</label>
+                    <input type="number" id="troop-second" placeholder="0" value="0">
+                </div>
+                <div class="form-column">
+                    <label for="troop-bonus">Construction Bonus (float):</label>
+                    <input type="number" id="troop-bonus" placeholder="0" value="0">
+                    <label for="troop-pet-skill">Pet Skill (float):</label>
+                    <input type="number" id="troop-pet-skill" placeholder="0" value="0">
+                </div>
+            </div>
+            <div class="checkbox-row">
+                <label>
+                    Policy (20%)
+                    <input type="checkbox" id="troop-policy">
+                </label>
+                <label>
+                    Presidential Boost (10%)
+                    <input type="checkbox" id="troop-presidential">
+                </label>
+                <label>
+                    Minister of Education (10%)
+                    <input type="checkbox" id="troop-minister">
+                </label>
+            </div>
             <button onclick="calculateTime('troop')">Calculate</button>
             <p id="troop-result"></p>
         </div>
     </div>
 
     <script>
+        function showSection(section) {
+            const sections = document.querySelectorAll('.section');
+            const tabs = document.querySelectorAll('.tab');
+            sections.forEach(sec => sec.classList.remove('active'));
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(section).classList.add('active');
+            document.querySelector(`.tab[onclick="showSection('${section}')"]`).classList.add('active');
+        }
+
         function calculateTime(type) {
             let day = parseInt(document.getElementById(type + '-day').value) || 0;
             let hour = parseInt(document.getElementById(type + '-hour').value) || 0;
