@@ -14,8 +14,7 @@
             background-color: #f0f0f0;
         }
         .container {
-            background-color: #ffdc5c;
-            opacity: 0.9;
+            background-color: rgba(255, 220, 92, 0.9);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -25,6 +24,9 @@
         h1 {
             text-align: center;
             color: #335397;
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto 20px;
         }
         .tabs {
             display: flex;
@@ -46,7 +48,7 @@
         }
         .section {
             display: none;
-            background-color: white;
+            background-color: rgba(255, 220, 92, 0.9);
             border: 2px solid #335397;
             border-radius: 0 0 8px 8px;
             padding: 20px;
@@ -69,6 +71,9 @@
         input[type="number"] {
             margin: 5px 0;
             width: 100px;
+        }
+        input::placeholder {
+            color: grey;
         }
         .checkbox-row {
             display: flex;
@@ -97,6 +102,15 @@
             color: green;
             text-align: center;
         }
+        @media (max-width: 600px) {
+            input[type="number"] {
+                width: 40px;
+                margin: 3px;
+            }
+            body {
+                zoom: 150%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -112,19 +126,19 @@
             <div class="form-row">
                 <div class="form-column">
                     <label for="construction-day">Day (int):</label>
-                    <input type="number" id="construction-day" placeholder="0" value="0">
+                    <input type="number" id="construction-day" placeholder="0">
                     <label for="construction-hour">Hour (int):</label>
-                    <input type="number" id="construction-hour" placeholder="0" value="0">
+                    <input type="number" id="construction-hour" placeholder="0">
                     <label for="construction-minute">Minute (int):</label>
-                    <input type="number" id="construction-minute" placeholder="0" value="0">
+                    <input type="number" id="construction-minute" placeholder="0">
                     <label for="construction-second">Second (int):</label>
-                    <input type="number" id="construction-second" placeholder="0" value="0">
+                    <input type="number" id="construction-second" placeholder="0">
                 </div>
                 <div class="form-column">
                     <label for="construction-bonus">Construction Bonus (float):</label>
-                    <input type="number" id="construction-bonus" placeholder="0" value="0">
+                    <input type="number" id="construction-bonus" placeholder="0">
                     <label for="construction-pet-skill">Pet Skill (float):</label>
-                    <input type="number" id="construction-pet-skill" placeholder="0" value="0">
+                    <input type="number" id="construction-pet-skill" placeholder="0">
                 </div>
             </div>
             <div class="checkbox-row">
@@ -150,19 +164,19 @@
             <div class="form-row">
                 <div class="form-column">
                     <label for="research-day">Day (int):</label>
-                    <input type="number" id="research-day" placeholder="0" value="0">
+                    <input type="number" id="research-day" placeholder="0">
                     <label for="research-hour">Hour (int):</label>
-                    <input type="number" id="research-hour" placeholder="0" value="0">
+                    <input type="number" id="research-hour" placeholder="0">
                     <label for="research-minute">Minute (int):</label>
-                    <input type="number" id="research-minute" placeholder="0" value="0">
+                    <input type="number" id="research-minute" placeholder="0">
                     <label for="research-second">Second (int):</label>
-                    <input type="number" id="research-second" placeholder="0" value="0">
+                    <input type="number" id="research-second" placeholder="0">
                 </div>
                 <div class="form-column">
                     <label for="research-bonus">Construction Bonus (float):</label>
-                    <input type="number" id="research-bonus" placeholder="0" value="0">
+                    <input type="number" id="research-bonus" placeholder="0">
                     <label for="research-pet-skill">Pet Skill (float):</label>
-                    <input type="number" id="research-pet-skill" placeholder="0" value="0">
+                    <input type="number" id="research-pet-skill" placeholder="0">
                 </div>
             </div>
             <div class="checkbox-row">
@@ -188,19 +202,19 @@
             <div class="form-row">
                 <div class="form-column">
                     <label for="troop-day">Day (int):</label>
-                    <input type="number" id="troop-day" placeholder="0" value="0">
+                    <input type="number" id="troop-day" placeholder="0">
                     <label for="troop-hour">Hour (int):</label>
-                    <input type="number" id="troop-hour" placeholder="0" value="0">
+                    <input type="number" id="troop-hour" placeholder="0">
                     <label for="troop-minute">Minute (int):</label>
-                    <input type="number" id="troop-minute" placeholder="0" value="0">
+                    <input type="number" id="troop-minute" placeholder="0">
                     <label for="troop-second">Second (int):</label>
-                    <input type="number" id="troop-second" placeholder="0" value="0">
+                    <input type="number" id="troop-second" placeholder="0">
                 </div>
                 <div class="form-column">
                     <label for="troop-bonus">Construction Bonus (float):</label>
-                    <input type="number" id="troop-bonus" placeholder="0" value="0">
+                    <input type="number" id="troop-bonus" placeholder="0">
                     <label for="troop-pet-skill">Pet Skill (float):</label>
-                    <input type="number" id="troop-pet-skill" placeholder="0" value="0">
+                    <input type="number" id="troop-pet-skill" placeholder="0">
                 </div>
             </div>
             <div class="checkbox-row">
