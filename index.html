@@ -134,6 +134,7 @@
         <div class="tab active" onclick="showSection('construction')">Construction</div>
         <div class="tab" onclick="showSection('research')">Research</div>
         <div class="tab" onclick="showSection('troop')">Troop</div>
+        <div class="tab" onclick="showSection('info')">Info</div>
     </div>
     <div class="container">
         <div id="construction" class="section active">
@@ -240,6 +241,12 @@
             </div>
             <button onclick="calculateTime('troop')">Calculate</button>
             <p id="troop-result"></p>
+        </div>
+        
+        <div id="info" class="section">
+            <h2>Info</h2>
+            <textarea rows="10" cols="50">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque leo at purus accumsan, in dictum quam tincidunt. Quisque at tellus ac elit facilisis ullamcorper. Phasellus eu vehicula ligula, ut suscipit urna. Integer pretium, velit at pulvinar ultricies, ipsum nisi auctor dolor, vel elementum sapien lectus ut velit.</textarea>
+            <p>For more information, visit the <a href="https://www.example.com">example link</a>.</p>
         </div>
     </div>
 
