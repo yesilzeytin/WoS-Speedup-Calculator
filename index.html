@@ -19,31 +19,48 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             width: 100%;
+            border: 2px solid #335397;
         }
         h1, h2 {
             text-align: center;
+            color: #335397;
         }
         .section {
             margin-bottom: 20px;
+            border: 1px solid #335397;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .section h2 {
+            margin-top: 0;
+            color: #335397;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #335397;
         }
         input[type="number"] {
             width: 60px;
             margin: 5px;
+            color: #335397;
         }
         input[type="checkbox"] {
             margin: 0 10px;
+            color: #335397;
         }
         button {
             margin-top: 10px;
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #335397;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #ffdc5c;
+            color: #335397;
         }
         .error {
             color: red;
@@ -64,47 +81,93 @@
 <body>
     <div class="container">
         <h1>Riyeko's Whiteout Survival Speedup Calculator</h1>
+        
         <div class="section">
             <h2>Construction Time</h2>
-            <input type="number" id="construction-day" placeholder="day (int)">
-            <input type="number" id="construction-hour" placeholder="hour (int)">
-            <input type="number" id="construction-minute" placeholder="minute (int)">
-            <input type="number" id="construction-second" placeholder="second (int)">
-            <input type="number" id="construction-bonus" placeholder="construction bonus (float)">
-            <input type="number" id="construction-pet-skill" placeholder="pet skill (float)">
-            Policy (20%) <input type="checkbox" id="construction-policy">
-            Presidential Boost (10%) <input type="checkbox" id="construction-presidential">
-            Vice President (10%) <input type="checkbox" id="construction-vp">
+            <label for="construction-day">Day (int):</label>
+            <input type="number" id="construction-day" placeholder="0" value="0">
+            <label for="construction-hour">Hour (int):</label>
+            <input type="number" id="construction-hour" placeholder="0" value="0">
+            <label for="construction-minute">Minute (int):</label>
+            <input type="number" id="construction-minute" placeholder="0" value="0">
+            <label for="construction-second">Second (int):</label>
+            <input type="number" id="construction-second" placeholder="0" value="0">
+            <label for="construction-bonus">Construction Bonus (float):</label>
+            <input type="number" id="construction-bonus" placeholder="0" value="0">
+            <label for="construction-pet-skill">Pet Skill (float):</label>
+            <input type="number" id="construction-pet-skill" placeholder="0" value="0">
+            <label>
+                Policy (20%)
+                <input type="checkbox" id="construction-policy">
+            </label>
+            <label>
+                Presidential Boost (10%)
+                <input type="checkbox" id="construction-presidential">
+            </label>
+            <label>
+                Vice President (10%)
+                <input type="checkbox" id="construction-vp">
+            </label>
             <button onclick="calculateTime('construction')">Calculate</button>
             <p id="construction-result"></p>
         </div>
 
         <div class="section">
             <h2>Research Time</h2>
-            <input type="number" id="research-day" placeholder="day (int)">
-            <input type="number" id="research-hour" placeholder="hour (int)">
-            <input type="number" id="research-minute" placeholder="minute (int)">
-            <input type="number" id="research-second" placeholder="second (int)">
-            <input type="number" id="research-bonus" placeholder="construction bonus (float)">
-            <input type="number" id="research-pet-skill" placeholder="pet skill (float)">
-            Policy (20%) <input type="checkbox" id="research-policy">
-            Presidential Boost (10%) <input type="checkbox" id="research-presidential">
-            Vice President (10%) <input type="checkbox" id="research-vp">
+            <label for="research-day">Day (int):</label>
+            <input type="number" id="research-day" placeholder="0" value="0">
+            <label for="research-hour">Hour (int):</label>
+            <input type="number" id="research-hour" placeholder="0" value="0">
+            <label for="research-minute">Minute (int):</label>
+            <input type="number" id="research-minute" placeholder="0" value="0">
+            <label for="research-second">Second (int):</label>
+            <input type="number" id="research-second" placeholder="0" value="0">
+            <label for="research-bonus">Construction Bonus (float):</label>
+            <input type="number" id="research-bonus" placeholder="0" value="0">
+            <label for="research-pet-skill">Pet Skill (float):</label>
+            <input type="number" id="research-pet-skill" placeholder="0" value="0">
+            <label>
+                Policy (20%)
+                <input type="checkbox" id="research-policy">
+            </label>
+            <label>
+                Presidential Boost (10%)
+                <input type="checkbox" id="research-presidential">
+            </label>
+            <label>
+                Vice President (10%)
+                <input type="checkbox" id="research-vp">
+            </label>
             <button onclick="calculateTime('research')">Calculate</button>
             <p id="research-result"></p>
         </div>
 
         <div class="section">
             <h2>Troop Time</h2>
-            <input type="number" id="troop-day" placeholder="day (int)">
-            <input type="number" id="troop-hour" placeholder="hour (int)">
-            <input type="number" id="troop-minute" placeholder="minute (int)">
-            <input type="number" id="troop-second" placeholder="second (int)">
-            <input type="number" id="troop-bonus" placeholder="construction bonus (float)">
-            <input type="number" id="troop-pet-skill" placeholder="pet skill (float)">
-            Policy (20%) <input type="checkbox" id="troop-policy">
-            Presidential Boost (10%) <input type="checkbox" id="troop-presidential">
-            Minister of Education (10%) <input type="checkbox" id="troop-minister">
+            <label for="troop-day">Day (int):</label>
+            <input type="number" id="troop-day" placeholder="0" value="0">
+            <label for="troop-hour">Hour (int):</label>
+            <input type="number" id="troop-hour" placeholder="0" value="0">
+            <label for="troop-minute">Minute (int):</label>
+            <input type="number" id="troop-minute" placeholder="0" value="0">
+            <label for="troop-second">Second (int):</label>
+            <input type="number" id="troop-second" placeholder="0" value="0">
+            <label for="troop-bonus">Construction Bonus (float):</label>
+            <input type="number" id="troop-bonus" placeholder="0" value="0">
+            <label for="troop-pet-skill">Pet Skill (float):</label>
+            <input type="number" id="troop-pet-skill" placeholder="0" value="0">
+            <label>
+                Policy (20%)
+                <input type="checkbox" id="troop-policy">
+            </label>
+            <label>
+                Presidential Boost (10%)
+                <input type="checkbox" id="troop-presidential">
+            </label>
+            <label>
+                Minister of Education (10%)
+                <input type="checkbox" id="troop-minister">
+            </label>
             <button onclick="calculateTime('troop')">Calculate</button>
             <p id="troop-result"></p>
         </div>
