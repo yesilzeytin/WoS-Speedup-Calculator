@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time Calculator</title>
+    <style>
+        .error { color: red; }
+        .success { color: green; }
+        .section { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Time Calculator</h1>
+    <div class="section">
+        <h2>Construction Time</h2>
+        <input type="number" id="construction-day" placeholder="day (int)">
+        <input type="number" id="construction-hour" placeholder="hour (int)">
+        <input type="number" id="construction-minute" placeholder="minute (int)">
+        <input type="number" id="construction-second" placeholder="second (int)">
+        <input type="number" id="construction-bonus" placeholder="construction bonus (float)">
+        <input type="number" id="construction-pet-skill" placeholder="pet skill (float)">
+        Policy (20%) <input type="checkbox" id="construction-policy">
+        Presidential Boost (10%) <input type="checkbox" id="construction-presidential">
+        Vice President (10%) <input type="checkbox" id="construction-vp">
+        <button onclick="calculateTime('construction')">Calculate</button>
+        <p id="construction-result"></p>
+    </div>
+
+    <div class="section">
+        <h2>Research Time</h2>
+        <input type="number" id="research-day" placeholder="day (int)">
+        <input type="number" id="research-hour" placeholder="hour (int)">
+        <input type="number" id="research-minute" placeholder="minute (int)">
+        <input type="number" id="research-second" placeholder="second (int)">
+        <input type="number" id="research-bonus" placeholder="construction bonus (float)">
+        <input type="number" id="research-pet-skill" placeholder="pet skill (float)">
+        Policy (20%) <input type="checkbox" id="research-policy">
+        Presidential Boost (10%) <input type="checkbox" id="research-presidential">
+        Vice President (10%) <input type="checkbox" id="research-vp">
+        <button onclick="calculateTime('research')">Calculate</button>
+        <p id="research-result"></p>
+    </div>
+
+    <div class="section">
+        <h2>Troop Time</h2>
+        <input type="number" id="troop-day" placeholder="day (int)">
+        <input type="number" id="troop-hour" placeholder="hour (int)">
+        <input type="number" id="troop-minute" placeholder="minute (int)">
+        <input type="number" id="troop-second" placeholder="second (int)">
+        <input type="number" id="troop-bonus" placeholder="construction bonus (float)">
+        <input type="number" id="troop-pet-skill" placeholder="pet skill (float)">
+        Policy (20%) <input type="checkbox" id="troop-policy">
+        Presidential Boost (10%) <input type="checkbox" id="troop-presidential">
+        Minister of Education (10%) <input type="checkbox" id="troop-minister">
+        <button onclick="calculateTime('troop')">Calculate</button>
+        <p id="troop-result"></p>
+    </div>
+
+    <script>
+        function calculateTime(type) {
+            let day = parseInt(document.getElementById(type + '-day').value) || 0;
+            let hour = parseInt(document.getElementById(type + '-hour').value) || 0;
+            let minute = parseInt(document.getElementById(type + '-minute').value) || 0;
+            let second = parseInt(document.getElementById(type + '-second').value) || 0;
+            let bonus = parseFloat(document.getElementById(type + '-bonus').value) || 0;
+            let petSkill = parseFloat(document.getElementById(type + '-pet-skill').value) || 0;
+            let policy = document.getElementById(type + '-policy').checked ? 0.2 : 0;
+            let presidential = document.getElementById(type + '-presidential').checked ? 0.1 : 0;
+            let vp = document.getElementById(type + '-vp').checked ? 0.1 : (type === 'troop' ? (document.getElementById(type + '-minister').checked ? 0.1 : 0) : 0);
+
+            let total_ticks_required = (day * 86400) + (hour * 3600) + (minute * 60) + second;
+            let total_bonus = 1 + bonus + petSkill + policy + presidential + vp;
+            let tick_completion_time_with_bonuses = total_ticks_required / total_bonus;
+
+            let resultDay = Math.floor(tick_completion_time_with_bonuses / 86400);
+            tick_completion_time_with_bonuses %= 86400;
+            let resultHour = Math.floor(tick_completion_time_with_bonuses / 3600);
+            tick_completion_time_with_bonuses %= 3600;
+            let resultMinute = Math.floor(tick_completion_time_with_bonuses / 60);
+            let resultSecond = Math.floor(tick_completion_time_with_bonuses % 60);
+
+            let resultText = `${resultDay}d, ${resultHour}h, ${resultMinute}m, ${resultSecond}s`;
+            document.getElementById(type + '-result').innerText = resultText;
+            document.getElementById(type + '-result').className = 'success';
+        }
+    </script>
+</body>
+</html>
