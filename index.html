@@ -135,19 +135,19 @@
             <h2>Construction Time</h2>
             <div class="form-row">
                 <div class="form-column">
-                    <label for="construction-day">Day (int):</label>
+                    <label for="construction-day">Day:</label>
                     <input type="number" id="construction-day" placeholder="0">
-                    <label for="construction-hour">Hour (int):</label>
+                    <label for="construction-hour">Hour:</label>
                     <input type="number" id="construction-hour" placeholder="0">
-                    <label for="construction-minute">Minute (int):</label>
+                    <label for="construction-minute">Minute:</label>
                     <input type="number" id="construction-minute" placeholder="0">
-                    <label for="construction-second">Second (int):</label>
+                    <label for="construction-second">Second:</label>
                     <input type="number" id="construction-second" placeholder="0">
                 </div>
                 <div class="form-column">
-                    <label for="construction-bonus">Construction Bonus (float):</label>
+                    <label for="construction-bonus">Construction Speed:</label>
                     <input type="number" id="construction-bonus" placeholder="0">
-                    <label for="construction-pet-skill">Pet Skill (float):</label>
+                    <label for="construction-pet-skill">Pet Skill:</label>
                     <input type="number" id="construction-pet-skill" placeholder="0">
                 </div>
             </div>
@@ -173,27 +173,23 @@
             <h2>Research Time</h2>
             <div class="form-row">
                 <div class="form-column">
-                    <label for="research-day">Day (int):</label>
+                    <label for="research-day">Day:</label>
                     <input type="number" id="research-day" placeholder="0">
-                    <label for="research-hour">Hour (int):</label>
+                    <label for="research-hour">Hour:</label>
                     <input type="number" id="research-hour" placeholder="0">
-                    <label for="research-minute">Minute (int):</label>
+                    <label for="research-minute">Minute:</label>
                     <input type="number" id="research-minute" placeholder="0">
-                    <label for="research-second">Second (int):</label>
+                    <label for="research-second">Second:</label>
                     <input type="number" id="research-second" placeholder="0">
                 </div>
                 <div class="form-column">
-                    <label for="research-bonus">Construction Bonus (float):</label>
-                    <input type="number" id="research-bonus" placeholder="0">
-                    <label for="research-pet-skill">Pet Skill (float):</label>
-                    <input type="number" id="research-pet-skill" placeholder="0">
+                    <label for="research-bonus">Research Speed:</label>
+                    <input type="number" id="research-bonus" placeholder="0.0">
+                    <label for="research-pet-skill">Pet Skill:</label>
+                    <input type="number" id="research-pet-skill" placeholder="0.0">
                 </div>
             </div>
             <div class="checkbox-row">
-                <label>
-                    Policy (20%)
-                    <input type="checkbox" id="research-policy">
-                </label>
                 <label>
                     Presidential Boost (10%)
                     <input type="checkbox" id="research-presidential">
@@ -211,33 +207,29 @@
             <h2>Troop Time</h2>
             <div class="form-row">
                 <div class="form-column">
-                    <label for="troop-day">Day (int):</label>
+                    <label for="troop-day">Day:</label>
                     <input type="number" id="troop-day" placeholder="0">
-                    <label for="troop-hour">Hour (int):</label>
+                    <label for="troop-hour">Hour:</label>
                     <input type="number" id="troop-hour" placeholder="0">
-                    <label for="troop-minute">Minute (int):</label>
+                    <label for="troop-minute">Minute:</label>
                     <input type="number" id="troop-minute" placeholder="0">
-                    <label for="troop-second">Second (int):</label>
+                    <label for="troop-second">Second:</label>
                     <input type="number" id="troop-second" placeholder="0">
                 </div>
                 <div class="form-column">
-                    <label for="troop-bonus">Construction Bonus (float):</label>
-                    <input type="number" id="troop-bonus" placeholder="0">
-                    <label for="troop-pet-skill">Pet Skill (float):</label>
-                    <input type="number" id="troop-pet-skill" placeholder="0">
+                    <label for="troop-bonus">Training Speed:</label>
+                    <input type="number" id="troop-bonus" placeholder="0.0">
+                    <label for="troop-pet-skill">Pet Skill:</label>
+                    <input type="number" id="troop-pet-skill" placeholder="0.0">
                 </div>
             </div>
             <div class="checkbox-row">
                 <label>
-                    Policy (20%)
-                    <input type="checkbox" id="troop-policy">
-                </label>
-                <label>
-                    Presidential Boost (10%)
+                    Presidential Boost (30%)
                     <input type="checkbox" id="troop-presidential">
                 </label>
                 <label>
-                    Minister of Education (10%)
+                    Minister of Education (50%)
                     <input type="checkbox" id="troop-minister">
                 </label>
             </div>
@@ -263,12 +255,13 @@
             let second = parseInt(document.getElementById(type + '-second').value) || 0;
             let bonus = parseFloat(document.getElementById(type + '-bonus').value) || 0;
             let petSkill = parseFloat(document.getElementById(type + '-pet-skill').value) || 0;
-            let policy = document.getElementById(type + '-policy').checked ? 0.2 : 0;
-            let presidential = document.getElementById(type + '-presidential').checked ? 0.1 : 0;
-            let vp = document.getElementById(type + '-vp').checked ? 0.1 : (type === 'troop' ? (document.getElementById(type + '-minister').checked ? 0.1 : 0) : 0);
+            let policy = document.getElementById(type + '-policy') ? (document.getElementById(type + '-policy').checked ? 0.2 : 0) : 0;
+            let presidential = document.getElementById(type + '-presidential').checked ? (type === 'troop' ? 0.3 : 0.1) : 0;
+            let vp = document.getElementById(type + '-vp') ? (document.getElementById(type + '-vp').checked ? 0.1 : 0) : 0;
+            let minister = document.getElementById(type + '-minister') ? (document.getElementById(type + '-minister').checked ? 0.5 : 0) : 0;
 
             let total_ticks_required = (day * 86400) + (hour * 3600) + (minute * 60) + second;
-            let total_bonus = 1 + bonus + petSkill + policy + presidential + vp;
+            let total_bonus = 1 + bonus + petSkill + policy + presidential + vp + minister;
             let tick_completion_time_with_bonuses = total_ticks_required / total_bonus;
 
             let resultDay = Math.floor(tick_completion_time_with_bonuses / 86400);
