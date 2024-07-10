@@ -116,6 +116,45 @@
             text-align: center;
             font-weight: bold;
         }
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+        }
+        
+        .popup-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 600px;
+            color: white;
+            background: darkgrey;
+            text-align: center;
+        }
+        
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close-btn:hover,
+        .close-btn:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
         @media (max-width: 600px) {
             input[type="number"] {
                 width: 40px;
@@ -130,6 +169,12 @@
 </head>
 <body>
     <h1>Riyeko's Whiteout Survival Speedup Calculator</h1>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </div>
     <div class="tabs">
         <div class="tab active" onclick="showSection('construction')">Construction</div>
         <div class="tab" onclick="showSection('research')">Research</div>
@@ -152,9 +197,9 @@
                 </div>
                 <div class="form-column">
                     <label for="construction-bonus">Construction Speed:</label>
-                    <input type="number" id="construction-bonus" placeholder="0">
+                    <input type="number" id="construction-bonus" placeholder="0.00">
                     <label for="construction-pet-skill">Pet Skill:</label>
-                    <input type="number" id="construction-pet-skill" placeholder="0">
+                    <input type="number" id="construction-pet-skill" placeholder="0.00">
                 </div>
             </div>
             <div class="checkbox-row">
@@ -190,9 +235,9 @@
                 </div>
                 <div class="form-column">
                     <label for="research-bonus">Research Speed:</label>
-                    <input type="number" id="research-bonus" placeholder="0.0">
+                    <input type="number" id="research-bonus" placeholder="0.00">
                     <label for="research-pet-skill">Pet Skill:</label>
-                    <input type="number" id="research-pet-skill" placeholder="0.0">
+                    <input type="number" id="research-pet-skill" placeholder="0.00">
                 </div>
             </div>
             <div class="checkbox-row">
@@ -224,9 +269,9 @@
                 </div>
                 <div class="form-column">
                     <label for="troop-bonus">Training Speed:</label>
-                    <input type="number" id="troop-bonus" placeholder="0.0">
+                    <input type="number" id="troop-bonus" placeholder="0.00">
                     <label for="troop-pet-skill">Pet Skill:</label>
-                    <input type="number" id="troop-pet-skill" placeholder="0.0">
+                    <input type="number" id="troop-pet-skill" placeholder="0.00">
                 </div>
             </div>
             <div class="checkbox-row">
@@ -265,8 +310,8 @@
             let hour = parseInt(document.getElementById(type + '-hour').value) || 0;
             let minute = parseInt(document.getElementById(type + '-minute').value) || 0;
             let second = parseInt(document.getElementById(type + '-second').value) || 0;
-            let bonus = parseFloat(document.getElementById(type + '-bonus').value) || 0;
-            let petSkill = parseFloat(document.getElementById(type + '-pet-skill').value) || 0;
+            let bonus = parseFloat((document.getElementById(type + '-bonus').value) / 100) || 0;
+            let petSkill = parseFloat((document.getElementById(type + '-pet-skill').value / 100)) || 0;
             let policy = document.getElementById(type + '-policy') ? (document.getElementById(type + '-policy').checked ? 0.2 : 0) : 0;
             let presidential = document.getElementById(type + '-presidential').checked ? (type === 'troop' ? 0.3 : 0.1) : 0;
             let vp = document.getElementById(type + '-vp') ? (document.getElementById(type + '-vp').checked ? 0.1 : 0) : 0;
@@ -287,6 +332,32 @@
             document.getElementById(type + '-result').innerText = resultText;
             document.getElementById(type + '-result').className = 'success';
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check if the user has visited before
+            if (!localStorage.getItem('popupDisplayed')) {
+                // Show the pop-up
+                document.getElementById("popup").style.display = "block";
+                // Set a flag in local storage
+                localStorage.setItem('popupDisplayed', 'true');
+            }
+        
+            // Get the <span> element that closes the pop-up
+            var closeBtn = document.querySelector(".close-btn");
+        
+            // When the user clicks on <span> (x), close the pop-up
+            closeBtn.onclick = function() {
+                document.getElementById("popup").style.display = "none";
+            }
+        
+            // When the user clicks anywhere outside of the pop-up, close it
+            window.onclick = function(event) {
+                var popup = document.getElementById("popup");
+                if (event.target == popup) {
+                    popup.style.display = "none";
+                }
+            }
+        });
     </script>
 </body>
 </html>
