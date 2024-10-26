@@ -307,6 +307,7 @@
             </div>
             <button onclick="calculateTime('construction')">Calculate</button>
             <button class="retrace" onclick="retraceTime('construction')">Retrace</button>
+            <button onclick="saveData('construction')">Save</button>
             <p id="construction-result"></p>
         </div>
 
@@ -342,6 +343,7 @@
             </div>
             <button onclick="calculateTime('research')">Calculate</button>
             <button class="retrace" onclick="retraceTime('research')">Retrace</button>
+            <button onclick="saveData('research')">Save</button>
             <p id="research-result"></p>
         </div>
 
@@ -381,6 +383,7 @@
             </div>
             <button onclick="calculateTime('troop')">Calculate</button>
             <button class="retrace" onclick="retraceTime('troop')">Retrace</button>
+            <button onclick="saveData('troop')">Save</button>
             <p id="troop-result"></p>
         </div>
 
@@ -472,6 +475,41 @@
             document.getElementById(type + '-result').innerText = resultText;
             document.getElementById(type + '-result').className = 'base-time';
         }
+
+        // Function to save user inputs for a specific section
+        function saveData(type) {
+            let data = {
+                day: document.getElementById(type + '-day').value || 0,
+                hour: document.getElementById(type + '-hour').value || 0,
+                minute: document.getElementById(type + '-minute').value || 0,
+                second: document.getElementById(type + '-second').value || 0,
+                bonus: document.getElementById(type + '-bonus').value || 0,
+                petSkill: document.getElementById(type + '-pet-skill').value || 0,
+                policy: document.getElementById(type + '-policy') ? document.getElementById(type + '-policy').checked : false,
+                presidential: document.getElementById(type + '-presidential').checked,
+                vp: document.getElementById(type + '-vp') ? document.getElementById(type + '-vp').checked : false,
+                minister: document.getElementById(type + '-minister') ? document.getElementById(type + '-minister').checked : false
+            };
+            localStorage.setItem(type + 'Data', JSON.stringify(data));
+            alert('Data saved for ' + type + '!');
+        }
+
+        // Function to load saved data for a specific section
+        function loadData(type) {
+            let savedData = JSON.parse(localStorage.getItem(type + 'Data'));
+            if (savedData) {
+                document.getElementById(type + '-day').value = savedData.day;
+                document.getElementById(type + '-hour').value = savedData.hour;
+                document.getElementById(type + '-minute').value = savedData.minute;
+                document.getElementById(type + '-second').value = savedData.second;
+                document.getElementById(type + '-bonus').value = savedData.bonus;
+                document.getElementById(type + '-pet-skill').value = savedData.petSkill;
+                if (document.getElementById(type + '-policy')) document.getElementById(type + '-policy').checked = savedData.policy;
+                document.getElementById(type + '-presidential').checked = savedData.presidential;
+                if (document.getElementById(type + '-vp')) document.getElementById(type + '-vp').checked = savedData.vp;
+                if (document.getElementById(type + '-minister')) document.getElementById(type + '-minister').checked = savedData.minister;
+            }
+        }
     
         document.addEventListener("DOMContentLoaded", function() {
             // Check if the user has visited before
@@ -497,6 +535,11 @@
                     popup.style.display = "none";
                 }
             }
+
+            // Load saved data for each section on page load
+            loadData('construction');
+            loadData('research');
+            loadData('troop');
         });
     </script>
 </body>
